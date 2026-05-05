@@ -6,9 +6,59 @@ import rock from '../assets/rock.svg';
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
+<script>
+  let currentFact = ""
+  const rockFacts: string[] = [
+  "If you soak a raisin in grape juice, it turns into a grape.",
+  "Dinosaurs had big ears, but everyone forgot this because dinosaur ears don't have bones.",
+  "Greg stole this rock from old lady Daniel's yard."
+  ]
+
+  const getRandomRockFact = () => {
+    const randomIndex = Math.floor(Math.random() * rockFacts.length);
+    currentFact = rockFacts[randomIndex];
+    updateParagraph()
+  }
+
+  const buttons = document.querySelectorAll('button');
+  const paragraph = document.querySelector('p');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', getRandomRockFact);
+  });
+
+  const updateParagraph = () => {
+    if (paragraph) {
+      paragraph.textContent = currentFact;
+    }
+  }
+</script>
+
 <Layout>
-  <div style="width: 100%; display: flex; justify-content: center;">
+  <div class="container">
     <!-- <Welcome /> -->
-    <img src={rock.src} alt="Rock" width="500px" height="500px">
+    <button class="rock">
+      <img src={rock.src} alt="Rock" width="400px" height="400px" >
+    </button>
+
+    <p></p>
+
   </div>
 </Layout>
+
+<style>
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  .rock {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+</style>
